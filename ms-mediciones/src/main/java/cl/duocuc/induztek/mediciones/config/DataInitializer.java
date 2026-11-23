@@ -14,6 +14,7 @@ public class DataInitializer implements CommandLineRunner {
 
 	private static final Long PROTOCOLO_PT_2026_0001 = 1L;
 	private static final Long PROTOCOLO_PT_2026_0002 = 2L;
+	private static final Long PROTOCOLO_PT_2026_0004 = 4L;
 	private static final Long PROTOCOLO_PT_2026_0005 = 5L;
 
 	private final MedicionRepository medicionRepository;
@@ -33,6 +34,8 @@ public class DataInitializer implements CommandLineRunner {
 				crear(PROTOCOLO_PT_2026_0001, "AISLAMIENTO_IP", "Fase B-Tierra", 1720.0, "MΩ", true),
 				crear(PROTOCOLO_PT_2026_0002, "RESISTENCIA_TTR", "H1-H2", 0.85, "Ω", true),
 				crear(PROTOCOLO_PT_2026_0002, "AISLAMIENTO_IP", "Fase A-Tierra", 2100.0, "MΩ", true),
+				crear(PROTOCOLO_PT_2026_0004, "RESISTENCIA_TTR", "H1-H3", 0.92, "Ω", true),
+				crear(PROTOCOLO_PT_2026_0004, "AISLAMIENTO_IP", "Fase B-Tierra", 1950.0, "MΩ", true),
 				crear(PROTOCOLO_PT_2026_0005, "AISLAMIENTO_IP", "Fase C-Tierra", 960.0, "MΩ", true),
 				crear(PROTOCOLO_PT_2026_0005, "RESISTENCIA_TTR", "H1-H2", 1.02, "Ω", false)));
 	}
