@@ -1,0 +1,100 @@
+services:
+  induztek-mysql:
+    image: mysql:8.0
+    container_name: induztek-mysql
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+    ports:
+      - "3306:3306"
+    volumes:
+      - mysql_data:/var/lib/mysql
+      - ./init-db.sql:/docker-entrypoint-initdb.d/init-db.sql
+    command: --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-uroot", "-proot"]
+      interval: 10s
+      timeout: 5s
+      retries: 12
+      start_period: 20s
+    networks:
+      - induztek-net
+
+  eureka-server:
+    build:
+      context: ./eurekaserver
+      dockerfile: Dockerfile
+    container_name: eureka-server
+    ports:
+      - "8761:8761"
+    restart: on-failure
+    networks:
+      - induztek-net
+
+  api-gateway:
+    build:
+      context: ./apigateway
+      dockerfile: Dockerfile
+    container_name: api-gateway
+    ports:
+      - "8081:8081"
+    depends_on:
+      - eureka-server
+    restart: on-failure
+    networks:
+      - induztek-net
+
+  ms-usuarios:
+    build:
+      context: ./ms-usuarios
+      dockerfile: Dockerfile
+    container_name: ms-usuarios
+    ports:
+      - "8082:8082"
+    depends_on:
+      induztek-mysql:
+        condition: service_healthy
+      eureka-server:
+        condition: service_started
+    restart: on-failure
+    networks:
+      - induztek-net
+
+  ms-protocolos:
+    build:
+      context: ./ms-protocolos
+      dockerfile: Dockerfile
+    container_name: ms-protocolos
+    ports:
+      - "8083:8083"
+    depends_on:
+      induztek-mysql:
+        condition: service_healthy
+      eureka-server:
+        condition: service_started
+    restart: on-failure
+    networks:
+      - induztek-net
+
+  ms-mediciones:
+    build:
+      context: ./ms-mediciones
+      dockerfile: Dockerfile
+    container_name: ms-mediciones
+    ports:
+      - "8084:8084"
+    depends_on:
+      induztek-mysql:
+        condition: service_healthy
+      eureka-server:
+        condition: service_started
+    restart: on-failure
+    networks:
+      - induztek-net
+
+networks:
+  induztek-net:
+    driver: bridge
+
+volumes:
+  mysql_data:
