@@ -26,21 +26,24 @@ public class DataInitializer implements CommandLineRunner {
 		Usuario admin = new Usuario();
 		admin.setNombre("Administrador Induztek");
 		admin.setCorreo("admin@induztek.cl");
-		admin.setPasswordHash(passwordEncoder.encode("Admin123"));
+		admin.setPasswordHash(passwordEncoder.encode("240be518fabd2724ddb6f04eeb1da5967448d7e831c08c8fa822809f74c720a9"
+));
 		admin.setRol("ADMINISTRADOR");
 		admin.setActivo(true);
 
 		Usuario tecnico = new Usuario();
 		tecnico.setNombre("Carlos Técnico");
 		tecnico.setCorreo("carlos.tecnico@induztek.cl");
-		tecnico.setPasswordHash(passwordEncoder.encode("Tecnico123"));
+		tecnico.setPasswordHash(passwordEncoder.encode("240be518fabd2724ddb6f04eeb1da5967448d7e831c08c8fa822809f74c720a9"
+));
 		tecnico.setRol("TECNICO");
 		tecnico.setActivo(true);
 
 		Usuario cliente = new Usuario();
 		cliente.setNombre("Contacto Enel");
 		cliente.setCorreo("contacto@enel.cl");
-		cliente.setPasswordHash(passwordEncoder.encode("Cliente123"));
+		cliente.setPasswordHash(passwordEncoder.encode("240be518fabd2724ddb6f04eeb1da5967448d7e831c08c8fa822809f74c720a9"
+));
 		cliente.setRol("CLIENTE");
 		cliente.setActivo(true);
 		cliente.setEmpresa("Enel Generación");
